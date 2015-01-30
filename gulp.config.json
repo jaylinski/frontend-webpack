@@ -1,5 +1,9 @@
 {
 	"webpackOptions": {
+		"server": {
+			"host": "localhost",
+			"port": 8080
+		},
 		"compile": {
 			"debug": true,
 			"devtool": "#source-map"

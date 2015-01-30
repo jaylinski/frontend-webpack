@@ -62,8 +62,8 @@ gulp.task("webpack-dev-server", function(callback) {
 	new webpackServer(webpack(webpackConfig), {
 		publicPath: "/" + configObj.output.publicPath,
 		stats: { colors: true }
-	}).listen(8080, "localhost", function(err) {
+	}).listen(config.webpackOptions.server.port, config.webpackOptions.server.host, function(err) {
 		if(err) throw new gulpUtil.PluginError("webpack-dev-server", err);
-		gulpUtil.log("[webpack-dev-server]", "http://localhost:8080/build/");
+		gulpUtil.log("[webpack-dev-server]", "http://" + config.webpackOptions.server.host + ":" + config.webpackOptions.server.port);
 	});
 });

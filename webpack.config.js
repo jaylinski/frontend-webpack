@@ -1,6 +1,7 @@
 "use strict";
 
-var path = require("path");
+var path           = require("path");
+var AppCachePlugin = require('appcache-webpack-plugin');
 
 module.exports = {
 	cache: true,
@@ -8,8 +9,8 @@ module.exports = {
 		app: ["./src/js/main.js"]
 	},
 	output: {
-		path: path.join(__dirname, "build"),
-		publicPath: "build/",
+		path: path.join(__dirname, "build/js"),
+		publicPath: "build/js/",
 		filename: "[name].js"
 	},
 	module: {
@@ -24,5 +25,7 @@ module.exports = {
 			{ test: /\.svg$/, loader: "file-loader?prefix=font/" }
 		]
 	},
-	plugins: []
+	plugins: [
+		new AppCachePlugin()
+	]
 };
