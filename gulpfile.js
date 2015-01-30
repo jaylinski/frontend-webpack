@@ -19,7 +19,7 @@ var config        = require('./gulp.config.json');
 var webpackConfig = require('./webpack.config.js');
 
 gulp.task('default', ['webpack-dev-server']);
-gulp.task('build',   ['webpack:build']);
+gulp.task('build',   ['bower', 'webpack:build']); // ToDo: clean
 
 gulp.task('root', function() {
 	return true;
@@ -27,12 +27,13 @@ gulp.task('root', function() {
 	//	.pipe(gulp.dest(config.destPaths.root));
 });
 
-gulp.task('bower', function() {
-	return gulpBower()
+gulp.task('bower', function(callback) {
+	gulpBower()
 		.pipe(gulp.dest(config.bowerOptions.paths.dest));
+	callback();
 });
 
-gulp.task("webpack:build", function(callback) {
+gulp.task("webpack:build", ['bower'], function(callback) {
 	// modify some webpack config options
 	var configObj = Object.create(webpackConfig);
 	configObj.plugins = configObj.plugins.concat(
@@ -55,12 +56,12 @@ gulp.task("webpack:build", function(callback) {
 	});
 });
 
-gulp.task("webpack-dev-server", function(callback) {
-	
-	var configObj = Object.create(webpackConfig);
-	
+gulp.task("webpack-dev-server", function(callback) {	
+	var configObj = Object.create(webpackConfig);	
 	new webpackServer(webpack(webpackConfig), {
+		contentBase: "build/",
 		publicPath: "/" + configObj.output.publicPath,
+		hot: true,
 		stats: { colors: true }
 	}).listen(config.webpackOptions.server.port, config.webpackOptions.server.host, function(err) {
 		if(err) throw new gulpUtil.PluginError("webpack-dev-server", err);

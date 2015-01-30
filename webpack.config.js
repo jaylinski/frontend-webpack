@@ -1,17 +1,19 @@
 "use strict";
 
-var path           = require("path");
-var AppCachePlugin = require('appcache-webpack-plugin');
+var path              = require("path");
+var webpack           = require("webpack");
+var AppCachePlugin    = require('appcache-webpack-plugin');
+var SwigWebpackPlugin = require('swig-webpack-plugin');
 
 module.exports = {
 	cache: true,
 	entry: {
-		app: ["./src/js/main.js"]
+		app: ["webpack/hot/dev-server", "./src/js/main.js"]
 	},
 	output: {
 		path: path.join(__dirname, "build/js"),
-		publicPath: "build/js/",
-		filename: "[name].js"
+		publicPath: "js/",
+		filename: "app.js"
 	},
 	module: {
 		loaders: [
@@ -26,6 +28,12 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new AppCachePlugin()
+		new AppCachePlugin(),
+		new webpack.HotModuleReplacementPlugin(),
+		new SwigWebpackPlugin({
+			template: 'src/templates/index.html',
+			filename: '../test.html',
+			beautify: true
+		})
 	]
 };
