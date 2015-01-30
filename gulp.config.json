@@ -1,0 +1,17 @@
+{
+	"webpackOptions": {
+		"compile": {
+			"debug": true,
+			"devtool": "#source-map"
+		},
+		"paths": {
+			"src": "./src/**",
+			"dest": "./build"
+		}
+	},
+	"bowerOptions": {
+		"paths": {
+			"dest": "./src/lib/"
+		}
+	}
+}

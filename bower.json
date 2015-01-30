@@ -1,0 +1,17 @@
+{
+	"name": "frontend-webpack",
+	"version": "0.0.1",
+	"ignore": [
+		".jshintrc",
+		".jscsrc",
+		".travis.yml",
+		"**/*.txt"
+	],
+	"dependencies": {
+		"bootstrap": "3.3.*",
+		"jquery": "2.1.*"
+	},
+	"devDependencies": {
+		
+	}
+}
