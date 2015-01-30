@@ -18,7 +18,7 @@ How to use
 
 Run `gulp bower` to fetch current bower dependencies. The files are copied to the directory `src/lib`.
 
-Run `gulp`, open http://localhost:8080/ and start coding.
+Run `gulp`, open `http://localhost:8080/webpack-dev-server/` and start coding.
 
 
 Versioning
