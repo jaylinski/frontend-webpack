@@ -13,24 +13,55 @@
 var gulp          = require('gulp');
 var gulpUtil      = require("gulp-util");
 var gulpBower     = require("gulp-bower");
+var gulpChanged   = require("gulp-changed");
+var gulpImagemin  = require("gulp-imagemin");
 var webpack       = require('webpack');
 var webpackServer = require('webpack-dev-server');
+var rimraf        = require('rimraf');
 var config        = require('./gulp.config.json');
 var webpackConfig = require('./webpack.config.js');
 
-gulp.task('default', ['webpack-dev-server']);
-gulp.task('build',   ['bower', 'webpack:build']); // ToDo: clean
+gulp.task('default', ['root', 'fonts', 'assets', 'images', 'webpack-dev-server']);
+gulp.task('build',   ['clean', 'bower', 'root', 'fonts', 'assets', 'images', 'webpack:build']);
+
+gulp.task('clean', function(callback) {
+	rimraf.sync(config.clean, function(err){
+		gulpUtil.log("[clean] errored");
+	});
+	callback();
+});
 
 gulp.task('root', function() {
-	return true;
-	//return gulp.src(config.srcPaths.root)
-	//	.pipe(gulp.dest(config.destPaths.root));
+	return gulp.src(config.root.src)
+		.pipe(gulp.dest(config.root.dest));
 });
 
 gulp.task('bower', function(callback) {
 	gulpBower()
 		.pipe(gulp.dest(config.bowerOptions.paths.dest));
 	callback();
+});
+
+gulp.task('images', function() {
+	return gulp.src(config.images.src)
+		.pipe(gulpChanged(config.images.dest))
+		.pipe(gulpImagemin({
+			progressive: true,
+			interlaced: true
+		}))
+		.pipe(gulp.dest(config.images.dest));
+});
+
+gulp.task('fonts', function() {
+	return gulp.src(config.fonts.src)
+		.pipe(gulpChanged(config.fonts.dest))
+		.pipe(gulp.dest(config.fonts.dest));
+});
+
+gulp.task('assets', function() {
+	return gulp.src(config.assets.src)
+		.pipe(gulpChanged(config.assets.dest))
+		.pipe(gulp.dest(config.assets.dest));
 });
 
 gulp.task("webpack:build", ['bower'], function(callback) {
@@ -59,12 +90,12 @@ gulp.task("webpack:build", ['bower'], function(callback) {
 gulp.task("webpack-dev-server", function(callback) {	
 	var configObj = Object.create(webpackConfig);	
 	new webpackServer(webpack(webpackConfig), {
-		contentBase: "build/",
+		contentBase: config.webpackOptions.paths.contentBase,
 		publicPath: "/" + configObj.output.publicPath,
 		hot: true,
 		stats: { colors: true }
 	}).listen(config.webpackOptions.server.port, config.webpackOptions.server.host, function(err) {
 		if(err) throw new gulpUtil.PluginError("webpack-dev-server", err);
-		gulpUtil.log("[webpack-dev-server]", "http://" + config.webpackOptions.server.host + ":" + config.webpackOptions.server.port);
+		gulpUtil.log("[webpack-dev-server]", config.webpackOptions.server.protocol + "://" + config.webpackOptions.server.host + ":" + config.webpackOptions.server.port);
 	});
 });

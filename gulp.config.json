@@ -2,20 +2,37 @@
 	"webpackOptions": {
 		"server": {
 			"host": "localhost",
-			"port": 8080
+			"port": 8080,
+			"protocol": "http"
 		},
 		"compile": {
 			"debug": true,
 			"devtool": "#source-map"
 		},
 		"paths": {
-			"src": "./src/**",
-			"dest": "./build"
+			"contentBase": "build/"
 		}
 	},
 	"bowerOptions": {
 		"paths": {
 			"dest": "./src/lib/"
 		}
+	},
+	"clean": "build",
+	"root": {
+		"src": ["src/*.*"],
+		"dest": "build"
+	},
+	"images": {
+		"src": ["src/img/**/*"],
+		"dest": "build/img"
+	},
+	"fonts": {
+		"src": ["src/fonts/**/*"],
+		"dest": "build/fonts"
+	},
+	"assets": {
+		"src": ["src/assets/**/*"],
+		"dest": "build/assets"
 	}
 }
