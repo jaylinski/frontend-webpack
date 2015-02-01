@@ -8,12 +8,17 @@ var SwigWebpackPlugin = require('swig-webpack-plugin');
 module.exports = {
 	cache: true,
 	entry: {
+		// Uncomment to activate HMR
 		app: ["webpack/hot/dev-server", "./src/js/main.js"]
+		//app: ["./src/js/main.js"]
 	},
 	output: {
-		path: path.join(__dirname, "build/js"),
-		publicPath: "js/",
-		filename: "app.js"
+		path: path.join(__dirname, "build"),
+		publicPath: "",
+		filename: "app.js",
+		chunkFilename: "js/[id].js",
+		hotUpdateMainFilename: "js/update.json",
+		hotUpdateChunkFilename: "js/update/[id].update.js"
 	},
 	module: {
 		loaders: [
@@ -25,15 +30,28 @@ module.exports = {
 			{ test: /\.ttf$/, loader: "file-loader?prefix=font/" },
 			{ test: /\.eot$/, loader: "file-loader?prefix=font/" },
 			{ test: /\.svg$/, loader: "file-loader?prefix=font/" }
+		],
+		preLoaders: [
+			{
+				test: /\.js$/,
+				include: pathToRegExp(path.join(__dirname, "src/js")),
+				loader: "jshint-loader"
+			}
 		]
 	},
+	jshint: {
+	},
 	plugins: [
-		new AppCachePlugin(),
+		// Uncomment to activate HMR
 		new webpack.HotModuleReplacementPlugin(),
+		new AppCachePlugin(),
 		new SwigWebpackPlugin({
 			template: 'src/templates/index.html',
-			filename: '../test.html',
+			filename: 'index.html',
 			beautify: true
 		})
 	]
 };
+
+function pathToRegExp(p) { return new RegExp("^" + escapeRegExpString(p)); }
+function escapeRegExpString(str) { return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"); }

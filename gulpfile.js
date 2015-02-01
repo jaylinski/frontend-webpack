@@ -16,7 +16,8 @@ var gulpBower     = require("gulp-bower");
 var gulpChanged   = require("gulp-changed");
 var gulpImagemin  = require("gulp-imagemin");
 var webpack       = require('webpack');
-var webpackServer = require('webpack-dev-server');
+var webpackServer = require('webpack-dev-server'),
+    webpackServerInstance;
 var rimraf        = require('rimraf');
 var config        = require('./gulp.config.json');
 var webpackConfig = require('./webpack.config.js');
@@ -89,10 +90,10 @@ gulp.task("webpack:build", ['bower'], function(callback) {
 
 gulp.task("webpack-dev-server", function(callback) {	
 	var configObj = Object.create(webpackConfig);	
-	new webpackServer(webpack(webpackConfig), {
+	webpackServerInstance = new webpackServer(webpack(webpackConfig), {
 		contentBase: config.webpackOptions.paths.contentBase,
 		publicPath: "/" + configObj.output.publicPath,
-		hot: true,
+		hot: config.webpackOptions.server.hot,
 		stats: { colors: true }
 	}).listen(config.webpackOptions.server.port, config.webpackOptions.server.host, function(err) {
 		if(err) throw new gulpUtil.PluginError("webpack-dev-server", err);

@@ -3,7 +3,8 @@
 		"server": {
 			"host": "localhost",
 			"port": 8080,
-			"protocol": "http"
+			"protocol": "http",
+			"hot": true
 		},
 		"compile": {
 			"debug": true,

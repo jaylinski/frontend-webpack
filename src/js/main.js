@@ -1,18 +1,13 @@
-var cssBootstrap = require('promise?bluebird,bootstrap.css!../less/bootstrap.less');
-var cssMain = require('promise?bluebird,main.css!../less/main.less');
+/* main entry point */
 
-cssBootstrap().then(function() {
-	// remove loading screen
-	console.log('bootstrap css loaded');
-});
-cssMain().then(function() {
-	// remove loading screen
-	console.log('main css loaded');
-});
+var styles = require(['../less/bootstrap.less','../less/main.less']);
+var jQuery = require('../lib/jquery/dist/jquery.min.js');
 
-(function () {
+(function ($) {
 	'use strict';
 
-	var foo = 'foo';
+	var foo_test = 'foo';
 	foo = 'test';
-})();
+var test = "fooo";
+	
+})(jQuery);
