@@ -9,8 +9,8 @@ module.exports = {
 	cache: true,
 	entry: {
 		// Uncomment to activate HMR
-		app: ["webpack/hot/dev-server", "./src/js/main.js"]
-		//app: ["./src/js/main.js"]
+		// app: ["webpack/hot/dev-server", "./src/js/main.js"]
+		app: ["./src/js/main.js"]
 	},
 	output: {
 		path: path.join(__dirname, "build"),
@@ -24,12 +24,12 @@ module.exports = {
 		loaders: [
 			{ test: /\.less$/, loader: "style-loader!css-loader!less-loader" }, // use ! to chain loaders
 			{ test: /\.css$/, loader: "style-loader!css-loader" },
-			{ test: /\.(png|jpg)$/, loader: "url-loader?limit=8192" }, // inline base64 URLs for <=8k images, direct URLs for the rest
-			{ test: /\.woff$/, loader: "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff" },
-			{ test: /\.woff2$/, loader: "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff2" },
-			{ test: /\.ttf$/, loader: "file-loader?prefix=font/" },
-			{ test: /\.eot$/, loader: "file-loader?prefix=font/" },
-			{ test: /\.svg$/, loader: "file-loader?prefix=font/" }
+			{ test: /\.(png|jpg)$/, loader: "url-loader?limit=8192&name=img/[name].[ext]" }, // inline base64 URLs for <=8k images, direct URLs for the rest
+			{ test: /\.woff$/, loader: "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff&name=fonts/[name].[ext]" },
+			{ test: /\.woff2$/, loader: "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff2&name=fonts/[name].[ext]" },
+			{ test: /\.ttf$/, loader: "file-loader?prefix=font/&name=fonts/[name].[ext]" },
+			{ test: /\.eot$/, loader: "file-loader?prefix=font/&name=fonts/[name].[ext]" },
+			{ test: /\.svg$/, loader: "file-loader?prefix=font/&name=assets/[name].[ext]" }
 		],
 		preLoaders: [
 			{
@@ -39,11 +39,9 @@ module.exports = {
 			}
 		]
 	},
-	jshint: {
-	},
 	plugins: [
 		// Uncomment to activate HMR
-		new webpack.HotModuleReplacementPlugin(),
+		// new webpack.HotModuleReplacementPlugin(),
 		new AppCachePlugin(),
 		new SwigWebpackPlugin({
 			template: 'src/templates/index.html',
