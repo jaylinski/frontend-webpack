@@ -39,10 +39,19 @@ module.exports = {
 			}
 		]
 	},
+	resolve: {
+		alias: {
+			jquery: path.join(__dirname, "./src/lib/jquery/dist/jquery.min.js")
+		}
+	},
 	plugins: [
 		// Uncomment to activate HMR
 		// new webpack.HotModuleReplacementPlugin(),
 		new AppCachePlugin(),
+		new webpack.ProvidePlugin({
+			$: "jquery",
+			jQuery: "jquery"
+		}),
 		new SwigWebpackPlugin({
 			template: 'src/templates/index.html',
 			filename: 'index.html',

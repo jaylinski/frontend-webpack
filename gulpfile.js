@@ -22,8 +22,8 @@ var rimraf        = require('rimraf');
 var config        = require('./gulp.config.json');
 var webpackConfig = require('./webpack.config.js');
 
-gulp.task('default', ['root', 'fonts', 'assets', 'images', 'webpack-dev-server']);
-gulp.task('build',   ['clean', 'bower', 'root', 'fonts', 'assets', 'images', 'webpack:build']);
+gulp.task('default', ['root', 'assets', 'images', 'webpack-dev-server']);
+gulp.task('build',   ['clean', 'bower', 'root', 'assets', 'images', 'webpack:build']);
 
 gulp.task('clean', function(callback) {
 	rimraf.sync(config.clean, function(err){
@@ -51,12 +51,6 @@ gulp.task('images', function() {
 			interlaced: true
 		}))
 		.pipe(gulp.dest(config.images.dest));
-});
-
-gulp.task('fonts', function() {
-	return gulp.src(config.fonts.src)
-		.pipe(gulpChanged(config.fonts.dest))
-		.pipe(gulp.dest(config.fonts.dest));
 });
 
 gulp.task('assets', function() {
