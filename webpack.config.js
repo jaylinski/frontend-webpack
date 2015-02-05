@@ -8,8 +8,6 @@ var SwigWebpackPlugin = require('swig-webpack-plugin');
 module.exports = {
 	cache: true,
 	entry: {
-		// Uncomment to activate HMR
-		// app: ["webpack/hot/dev-server", "./src/js/main.js"]
 		app: ["./src/js/main.js"]
 	},
 	output: {
@@ -45,8 +43,6 @@ module.exports = {
 		}
 	},
 	plugins: [
-		// Uncomment to activate HMR
-		// new webpack.HotModuleReplacementPlugin(),
 		new AppCachePlugin(),
 		new webpack.ProvidePlugin({
 			$: "jquery",

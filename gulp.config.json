@@ -21,7 +21,7 @@
 	},
 	"clean": "build",
 	"root": {
-		"src": ["src/*.*"],
+		"src": ["src/*.*", "src/.*"],
 		"dest": "build"
 	},
 	"images": {
