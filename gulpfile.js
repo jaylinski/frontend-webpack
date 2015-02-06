@@ -85,12 +85,8 @@ gulp.task("webpack:build", ['bower'], function(callback) {
 gulp.task("webpack-dev-server", function(callback) {	
 	var configObj = Object.create(webpackConfig);
 	if(config.webpackOptions.server.hot) {
-		configObj.plugins = configObj.plugins.concat(
-			new webpack.HotModuleReplacementPlugin()
-		);
-		configObj.entry.app = configObj.entry.app.concat(
-			"webpack/hot/dev-server"
-		);
+		configObj.plugins.unshift(new webpack.HotModuleReplacementPlugin());
+		configObj.entry.app.unshift("webpack/hot/dev-server");
 	}
 	webpackServerInstance = new webpackServer(webpack(webpackConfig), {
 		contentBase: config.webpackOptions.paths.contentBase,
