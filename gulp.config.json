@@ -28,10 +28,6 @@
 		"src": ["src/img/**/*"],
 		"dest": "build/img"
 	},
-	"fonts": {
-		"src": ["src/fonts/**/*"],
-		"dest": "build/fonts"
-	},
 	"assets": {
 		"src": ["src/assets/**/*"],
 		"dest": "build/assets"

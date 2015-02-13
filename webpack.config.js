@@ -49,8 +49,8 @@ module.exports = {
 			jQuery: "jquery"
 		}),
 		new SwigWebpackPlugin({
-			template: 'src/templates/index.html',
-			filename: 'index.html',
+			template: 'src/templates/*.html',
+			watch: 'src/templates/**/*.html',
 			beautify: true
 		})
 	]
