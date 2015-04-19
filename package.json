@@ -1,7 +1,7 @@
 {
   "name": "frontend-webpack",
   "description": "Workflow for frontend projects with Gulp, Webpack, Bower and Swig.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "devDependencies": {
     "appcache-webpack-plugin": "^0.1.1",
     "bluebird": "^2.9.3",
