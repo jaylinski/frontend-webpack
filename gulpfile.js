@@ -26,15 +26,15 @@ gulp.task('default', ['root', 'assets', 'images', 'webpack-dev-server']);
 gulp.task('build',   ['clean', 'bower', 'root', 'assets', 'images', 'webpack:build']);
 
 gulp.task('clean', function(callback) {
-	rimraf.sync(config.clean, function(err){
+	rimraf.sync(config.paths.clean, function(err){
 		gulpUtil.log("[clean] errored");
 	});
 	callback();
 });
 
 gulp.task('root', function() {
-	return gulp.src(config.root.src)
-		.pipe(gulp.dest(config.root.dest));
+	return gulp.src(config.paths.root.src)
+		.pipe(gulp.dest(config.paths.root.dest));
 });
 
 gulp.task('bower', function(callback) {
@@ -44,19 +44,19 @@ gulp.task('bower', function(callback) {
 });
 
 gulp.task('images', function() {
-	return gulp.src(config.images.src)
-		.pipe(gulpChanged(config.images.dest))
+	return gulp.src(config.paths.images.src)
+		.pipe(gulpChanged(config.paths.images.dest))
 		.pipe(gulpImagemin({
 			progressive: true,
 			interlaced: true
 		}))
-		.pipe(gulp.dest(config.images.dest));
+		.pipe(gulp.dest(config.paths.images.dest));
 });
 
 gulp.task('assets', function() {
-	return gulp.src(config.assets.src)
-		.pipe(gulpChanged(config.assets.dest))
-		.pipe(gulp.dest(config.assets.dest));
+	return gulp.src(config.paths.assets.src)
+		.pipe(gulpChanged(config.paths.assets.dest))
+		.pipe(gulp.dest(config.paths.assets.dest));
 });
 
 gulp.task("webpack:build", ['bower'], function(callback) {

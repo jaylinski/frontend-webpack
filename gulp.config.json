@@ -19,17 +19,19 @@
 			"dest": "./src/lib/"
 		}
 	},
-	"clean": "build",
-	"root": {
-		"src": ["src/*.*", "src/.*"],
-		"dest": "build"
-	},
-	"images": {
-		"src": ["src/img/**/*"],
-		"dest": "build/img"
-	},
-	"assets": {
-		"src": ["src/assets/**/*"],
-		"dest": "build/assets"
+	"paths": {
+		"clean": "build",
+		"root": {
+			"src": ["src/*.*", "src/.*"],
+			"dest": "build"
+		},
+		"images": {
+			"src": ["src/img/**/*"],
+			"dest": "build/img"
+		},
+		"assets": {
+			"src": ["src/assets/**/*"],
+			"dest": "build/assets"
+		}
 	}
 }
