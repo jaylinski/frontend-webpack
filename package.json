@@ -21,10 +21,10 @@
     "style-loader": "^0.8.3",
     "svgo": "^0.5.0",
     "svgo-loader": "^1.1.0",
-    "swig-webpack-plugin": "^0.3.0",
+    "swig-webpack-plugin": "^0.4.0",
     "url-loader": "^0.5.5",
-    "webpack": "1.5.*",
-    "webpack-dev-server": "1.7.*"
+    "webpack": "1.8.*",
+    "webpack-dev-server": "1.8.*"
   },
   "engines": {
     "node": ">=0.10.0"
