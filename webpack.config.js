@@ -14,9 +14,9 @@ module.exports = {
 		path: path.join(__dirname, "build"),
 		publicPath: "",
 		filename: "app.js",
-		chunkFilename: "js/[id].js",
+		chunkFilename: "js/[hash].js",
 		hotUpdateMainFilename: "js/update.json",
-		hotUpdateChunkFilename: "js/update/[id].update.js"
+		hotUpdateChunkFilename: "js/update/[hash].update.js"
 	},
 	module: {
 		loaders: [

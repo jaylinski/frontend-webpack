@@ -26,7 +26,7 @@ gulp.task('default', ['root', 'assets', 'images', 'webpack-dev-server']);
 gulp.task('build',   ['clean', 'bower', 'root', 'assets', 'images', 'webpack:build']);
 
 gulp.task('clean', function(callback) {
-	rimraf.sync(config.paths.clean, function(err){
+	rimraf.sync(config.paths.clean, [], function(err){
 		gulpUtil.log("[clean] errored");
 	});
 	callback();
@@ -95,6 +95,11 @@ gulp.task("webpack-dev-server", function(callback) {
 		stats: { colors: true }
 	}).listen(config.webpackOptions.server.port, config.webpackOptions.server.host, function(err) {
 		if(err) throw new gulpUtil.PluginError("webpack-dev-server", err);
-		gulpUtil.log("[webpack-dev-server]", config.webpackOptions.server.protocol + "://" + config.webpackOptions.server.host + ":" + config.webpackOptions.server.port);
+		gulpUtil.log(
+			"[webpack-dev-server]",
+			config.webpackOptions.server.protocol +
+			"://" + config.webpackOptions.server.host +
+			":" + config.webpackOptions.server.port
+		);
 	});
 });
