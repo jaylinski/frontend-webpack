@@ -3,7 +3,7 @@
   "description": "Workflow for frontend projects with Gulp, Webpack, Bower and Swig.",
   "version": "0.2.0",
   "devDependencies": {
-    "appcache-webpack-plugin": "^0.1.1",
+    "appcache-webpack-plugin": "^1.2.1",
     "bluebird": "^2.9.3",
     "css-loader": "^0.23.0",
     "expose-loader": "^0.7.0",
