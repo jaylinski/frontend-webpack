@@ -1,0 +1,12 @@
+:root {
+  --color-header: #111111;
+  --color-background: #ededed;
+  --color-background-footer: #e0e0e0;
+  --container-size: 1280px;
+}
+
+@custom-media --viewport-phone (min-width: 360px);
+@custom-media --viewport-phone-large (min-width: 400px);
+@custom-media --viewport-tablet (min-width: 768px);
+@custom-media --viewport-desktop (min-width: 1024px);
+@custom-media --viewport-desktop-large (min-width: 1280px);

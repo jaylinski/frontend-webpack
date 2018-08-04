@@ -1,0 +1,12 @@
+@import '../../css/var.css';
+
+.c-home {
+  margin: 0 auto 25px auto;
+  max-width: 1280px;
+}
+
+@media (--viewport-tablet) {
+  .c-home {
+    margin-top: 10px;
+  }
+}

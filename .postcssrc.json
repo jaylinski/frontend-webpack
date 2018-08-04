@@ -1,0 +1,12 @@
+{
+  "plugins": {
+    "postcss-import": {},
+    "postcss-nested": {},
+    "postcss-custom-media": {
+      "preserve": false
+    },
+    "postcss-custom-properties": {
+      "preserve": false
+    }
+  }
+}

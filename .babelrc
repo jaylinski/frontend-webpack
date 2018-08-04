@@ -1,0 +1,15 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "browsers": ["last 2 versions", "not ie <= 10", "Firefox ESR"]
+      },
+      "modules": false,
+      "loose": true,
+      "useBuiltIns": "usage"
+    }]
+  ],
+  "plugins": [
+    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }]
+  ]
+}

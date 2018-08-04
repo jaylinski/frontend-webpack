@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+  <title>frontend-webpack</title>
+  <meta name="description" content="">
+
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/assets/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+
+  <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks['app'].entry %>" async defer></script>
+  <style type="text/css"><%= compilation.assets['shell.css'].source() %></style>
+</head>
+<body>
+<header class="b-header">
+  <div class="b-header__container">
+    frontend-webpack
+  </div>
+</header>
+<main id="app" class="b-main"></main>
+<footer class="b-footer">
+  <div class="b-footer__container">
+    &copy; 2018 frontend-webpack
+  </div>
+</footer>
+</body>
+</html>

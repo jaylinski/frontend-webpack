@@ -1,0 +1,35 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "react/jsx-no-target-blank": 1
+  },
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
+  },
+  "globals": {
+    "CustomEvent": true,
+    "document": true,
+    "navigator": true,
+    "window": true
+  }
+}

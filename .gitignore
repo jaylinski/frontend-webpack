@@ -1,13 +1,2 @@
-# Vendor files #
-################
-/bower_components/
-/node_modules/
-
-# Build files #
-################
 /build/
-
-# Project files #
-#################
-.project
-.log
+/node_modules/

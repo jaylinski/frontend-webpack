@@ -1,0 +1,12 @@
+@import '../../css/var.css';
+
+.c-example {
+  padding: 5px;
+  flex-grow: 1;
+}
+
+@media (--viewport-tablet) {
+  .c-filter {
+    flex-grow: 0;
+  }
+}

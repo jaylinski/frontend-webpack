@@ -1,0 +1,58 @@
+@import 'normalize.css';
+@import 'var.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background-color: var(--color-background);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+.b-header {
+  height: 66px;
+  background-color: var(--color-header);
+  color: #eee;
+  z-index: 10;
+}
+
+.b-header__container {
+  max-width: var(--container-size);
+  padding: 0 0 0 15px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.b-main {
+  display: block; /* IE11 fix */
+  min-height: 200px; /* IE11 fix */
+}
+
+.b-footer {
+  color: #5b5b5b;
+  font-size: .9em;
+  text-align: center;
+  background-color: var(--color-background-footer);
+}
+.b-footer__container {
+  max-width: var(--container-size);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+@media (--viewport-desktop-large) {
+  .b-header__container {
+    padding: 0 15px;
+  }
+}

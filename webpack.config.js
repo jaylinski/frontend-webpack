@@ -1,60 +1,106 @@
-"use strict";
+/* eslint-env node */
 
-var path              = require("path");
-var webpack           = require("webpack");
-var AppCachePlugin    = require('appcache-webpack-plugin');
-var SwigWebpackPlugin = require('swig-webpack-plugin');
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
-	cache: true,
-	entry: {
-		app: ["./src/js/main.js"]
-	},
-	output: {
-		path: path.join(__dirname, "build"),
-		publicPath: "",
-		filename: "app.js",
-		chunkFilename: "js/[hash].js",
-		hotUpdateMainFilename: "js/update.json",
-		hotUpdateChunkFilename: "js/update/[hash].update.js"
-	},
-	module: {
-		loaders: [
-			{ test: /\.less$/, loader: "style-loader!css-loader!less-loader" }, // use ! to chain loaders
-			{ test: /\.css$/, loader: "style-loader!css-loader" },
-			{ test: /\.(png|jpg|gif)$/, loader: "url-loader?limit=8192&name=img/[name].[ext]" }, // inline base64 URLs for <=8k images, direct URLs for the rest
-			{ test: /\.woff$/, loader: "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff&name=fonts/[name].[ext]" },
-			{ test: /\.woff2$/, loader: "url-loader?prefix=font/&limit=5000&mimetype=application/font-woff2&name=fonts/[name].[ext]" },
-			{ test: /\.ttf$/, loader: "file-loader?prefix=font/&name=fonts/[name].[ext]" },
-			{ test: /\.eot$/, loader: "file-loader?prefix=font/&name=fonts/[name].[ext]" },
-			{ test: /\.svg$/, loader: "file-loader?prefix=font/&name=assets/[name].[ext]" }
-		],
-		preLoaders: [
-			{
-				test: /\.js$/,
-				include: pathToRegExp(path.join(__dirname, "src/js")),
-				loader: "jshint-loader"
-			}
-		]
-	},
-	resolve: {
-		alias: {
-			jquery: path.join(__dirname, "./src/lib/jquery/dist/jquery.min.js")
-		}
-	},
-	plugins: [
-		new AppCachePlugin(),
-		new webpack.ProvidePlugin({
-			$: "jquery",
-			jQuery: "jquery"
-		}),
-		new SwigWebpackPlugin({
-			template: './src/templates/*.html',
-			watch: './src/templates/**/*.html',
-			beautify: true
-		})
-	]
+const history = require('connect-history-api-fallback');
+const convert = require('koa-connect');
+
+const mode = process.env.WEBPACK_MODE || 'development';
+const isProductionBuild = mode === 'production';
+const outputPath = 'build';
+
+const webpackConfig = {
+  context: path.resolve(__dirname, 'src'),
+  entry: {
+    app: './index.js',
+    shell: './shell.js',
+  },
+  output: {
+    filename: '[name].[hash].js',
+    path: path.resolve(__dirname, outputPath),
+    publicPath: '/',
+  },
+  mode,
+  module: {
+    rules: [
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /shell\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: isProductionBuild,
+            },
+          },
+          'postcss-loader',
+        ],
+      },
+      {
+        test: /(app|style)\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+      {
+        test: /\.(png|jpg|svg)/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash].[ext]',
+              outputPath: 'files/',
+            },
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin([outputPath]),
+    new CopyWebpackPlugin([
+      'assets/**/*',
+      'manifest.json',
+      'robots.txt',
+    ]),
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      chunks: ['app'],
+      inject: false,
+      minify: isProductionBuild ? {
+        collapseWhitespace: true,
+        minifyCSS: true,
+        removeComments: true,
+        maxLineLength: 200,
+        customAttrCollapse: /d/, // SVG paths
+      } : false,
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'shell.css',
+    }),
+  ],
+  serve: {
+    content: path.resolve(__dirname, outputPath),
+    port: 5000,
+    add: (app) => {
+      app.use(convert(history()));
+    },
+  },
 };
 
-function pathToRegExp(p) { return new RegExp("^" + escapeRegExpString(p)); }
-function escapeRegExpString(str) { return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"); }
+module.exports = webpackConfig;
